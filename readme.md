@@ -1,3 +1,7 @@
+> [!WARNING]
+> 由于 DuckDuckGo 的单IP并发限制，导致429错误，以及无服务器环境 Vercel, Cloudflare Workers 基本被 DuckDuckGo 封禁等[原因](https://github.com/leafmoes/DDG-Chat/issues/19#issuecomment-2698038822)
+> 本项目已归档，请尝试其他项目，非常感谢你对本项目的支持，但我们不得不再见！
+
 <div align="center">
 <img src="https://socialify.git.ci/leafmoes/DDG-Chat/image?font=Inter&forks=1&issues=1&logo=https://duckduckgo.com/assets/logo_header.v109.svg&name=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto" alt="DDG-Chat"/>
 
@@ -5,7 +9,7 @@
 
 支持 Vercel, Cloudflare Workers, Docker, Render 等
 
-支持 GPT4o mini, Claude 3 Haiku, Llama 3.1 70B, Mixtral 8x7B 模型
+支持 o3 mini, GPT 4o mini, Claude 3 Haiku, Llama 3.3 70B, Mixtral Small 3 模型
 
 所有模型均由 DuckDuckGo 匿名提供
 
@@ -72,14 +76,16 @@ curl --request POST 'https://chatcfapi.r12.top/v1/chat/completions' \
 
 - gpt-4o-mini
 - claude-3-haiku
-- llama-3.1-70b
-- mixtral-8x7b
+- llama-3.3-70b
+- mixtral-small-3
+- o3-mini
 
 ## 手动部署
 
-由于 DDG API 限制单 IP 并发数，推荐使用 Vercel 进行部署，如果使用 Docker 之类的本地部署，请确保项目运行在代理池中。
+为了避免触发 DDG API 的并发限制，在使用 Docker 等本地部署方案时，请确保项目运行在代理池中。
+同时，由于 Vercel 和 Cloudflare 的 IP 已被 DDG 屏蔽（可能由于过多用户使用或触发临时风控），不再建议通过这些方式部署。
 
-### Vercel
+### Vercel（不推荐）
 
 方法一：云端 Fork 仓库部署
 
@@ -109,7 +115,7 @@ npm run publish
 
 [<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy on Render" height="30">](https://render.com/deploy)
 
-### Cloudflare Workers
+### Cloudflare Workers（不推荐）
 
 方法一：
 
@@ -132,7 +138,7 @@ npm install
 
 3. 打开文件 /api/index.js ，取消最后一行的注释，然后执行 `npm run publish:cf`
 
-### Hugging Face
+### Hugging Face (推荐)
 
 1. 创建一个新空间：[Create a new Space ](https://huggingface.co/new-space)
     ```
